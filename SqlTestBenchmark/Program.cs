@@ -1,4 +1,5 @@
 using BenchmarkDotNet.Running;
+
 namespace SqlTestBenchmark31
 {
     public class Program
@@ -7,6 +8,7 @@ namespace SqlTestBenchmark31
         {
             //CreateHostBuilder(args).Build().Run();
             BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
+
         }
 
     }

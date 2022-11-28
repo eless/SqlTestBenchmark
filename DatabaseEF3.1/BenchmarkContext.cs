@@ -1,6 +1,9 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
+using Microsoft.Extensions.Logging.Console;
 
 namespace DatabaseEF31
 {
@@ -19,9 +22,13 @@ namespace DatabaseEF31
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+            });
             optionsBuilder
-                .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=testDB;Trusted_Connection=True;Connection Timeout=3600");
-            //.LogTo(Console.WriteLine, LogLevel.Information);
+                .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=testDB;Trusted_Connection=True;Connection Timeout=3600")
+                .UseLoggerFactory(loggerFactory);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
